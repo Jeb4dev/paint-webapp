@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col" style="text-align: center;">
+                <div class="card form_card">
+                    <div class="card-text">
+                        <form method="post">
+                            <h2 style="text-align: center">{{ form.submit.label.text }}</h2>
+                            {% if form.errors %}
+                                <div style="text-align: left">
+                                    <h3 style="color: rgb(var(--bs-danger-rgb));">Errors</h3>
+                                    <ul>
+                                        {% for field, errors in form.errors.items() %}
+                                            <li>
+                                                {{ field }}
+                                                <ul>
+                                                    {% for error in errors %}
+                                                        <li>{{ error }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            {% for field in form %}
+                                {% if field.flags.hidden %}
+                                    {{ field }}
+                                {% endif %}
+
+                                <div class="mb-3">
+                                    {% if not field.flags.hidden and field.type != 'SubmitField' %}
+                                        {{ field.label(class_='form-label') }}
+                                        {{ field(class_='form-control') }}
+                                    {% endif %}
+                                </div>
+
+                                {% if field.type == 'SubmitField' %}
+                                    {{ field }}
+                                {% endif %}
+
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+{% endblock %}
