@@ -31,8 +31,6 @@ class User(db.Model):
         )
         db.session.add(user)
         db.session.commit()
-        db.session.add(Artwork(user_id=user.id))
-        db.session.commit()
         return user
 
     def __repr__(self):
