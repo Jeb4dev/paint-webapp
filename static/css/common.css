@@ -6,3 +6,8 @@ body {
 .disable-list::before {
     content: '' !important;
 }
+
+.paint-col {
+    display: flex;
+    flex-direction: column;
+}

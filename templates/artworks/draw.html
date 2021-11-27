@@ -5,5 +5,80 @@
 {% endblock %}
 
 {% block content %}
-    
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="d-flex">
+                    <div class="paint-col">
+                        <button
+                            class="paint-tool btn btn-outline-dark"
+                            onclick="changeTool(this)"
+                            data-tool="brush"
+                        >
+                            <i class="paint-tool icon-paint-brush"></i>
+                        </button>
+
+                        <button
+                            class="paint-tool btn btn-outline-dark"
+                            onclick="changeTool(this)"
+                            data-tool="line"
+                            style="width: 42px; height: 46.5px;"
+                        >
+                            <p class="icon-line">\</p>
+                        </button>
+
+                        <button
+                            class="paint-tool btn btn-outline-dark"
+                            onclick="changeTool(this)"
+                            data-tool="triangle"
+                        >
+                            <i class="paint-tool icon-caret-up"></i>
+                        </button>
+                    </div>
+                    <div class="paint-col">
+                        <button
+                            class="paint-tool btn btn-outline-dark"
+                            onclick="changeTool(this)"
+                            data-tool="rubber"
+                            title="Rubber"
+                        >
+                            <i class="paint-tool icon-fire"></i>
+                        </button>
+                        <button
+                            class="paint-tool btn btn-outline-dark"
+                            onclick="changeTool(this)"
+                            data-tool="rect"
+                        >
+                            <i class="paint-tool icon-square-o"></i>
+                        </button>
+
+                        <button
+                            class="paint-tool btn btn-outline-dark"
+                            onclick="changeTool(this)"
+                            data-tool="circle"
+                        >
+                            <i class="paint-tool icon-circle-o"></i>
+                        </button>
+
+                        <button
+                            class="paint-tool btn btn-danger"
+                            onclick="changeTool(this)"
+                            data-tool="clear"
+                        >
+                            <i class="paint-tool icon-trash"></i>
+                        </button>
+
+                    </div>
+
+
+                    <div id="canvas" style="margin-left: 1.5vw"></div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+
+    </div>
+
 {% endblock %}

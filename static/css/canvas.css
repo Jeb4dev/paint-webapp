@@ -1,0 +1,11 @@
+#canvas {
+    cursor: crosshair;
+}
+
+.icon-line {
+    width: 22px;
+    height: 16px;
+    font-size: 20pt;
+    text-align: center;
+    transform: translate(-10%, -25%);
+}
