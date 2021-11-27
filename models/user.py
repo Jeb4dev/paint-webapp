@@ -12,7 +12,6 @@ class User(db.Model):
     username = db.Column(db.String(32), nullable=False)
     password_hash = db.Column(db.String(200))
 
-    artwork = db.relationship('Artwork', backref='user', lazy=True, uselist=False)
     likes = db.relationship(
         'Likes',
         secondary='likes',
