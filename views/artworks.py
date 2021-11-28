@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
+from flask_login import current_user
+
+from forms.upload import UploadForm
 
 artworks = Blueprint('images', __name__)
 
@@ -10,7 +13,11 @@ def index():
 
 @artworks.route('/draw', methods=['GET', 'POST'])
 def draw():
-    return render_template('artworks/draw.html')
+    form = UploadForm()
+
+    if request.method == 'POST' and current_user and form.validate_on_submit():
+        print(current_user)
+    return render_template('artworks/draw.html', form=form)
 
 
 @artworks.get('/guess')
