@@ -34,7 +34,7 @@ def login():
         password = form.password.data
         user = User.query.filter_by(username=username).first()
         if user:
-            if check_password_hash(password, user.password_hash):
+            if user.check_password(password):
                 login_user(user, remember=True)
                 return redirect(url_for('auth.account'))
             else: print("wrong pswd")
