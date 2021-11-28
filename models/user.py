@@ -1,19 +1,22 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from __init__ import db
-from artwork import Artwork
+from flask_login import UserMixin
+
+from . import db
+from . import likes
+from . import artwork
 
 # Many to Many Artwork to Users
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), nullable=False)
     password_hash = db.Column(db.String(200))
 
-    likes = db.relationship(
-        'Likes',
+    liked_artworks = db.relationship(
+        'Artwork',
         secondary='likes',
         lazy='subquery',
         backref=db.backref('users', lazy=True)
