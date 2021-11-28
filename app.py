@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from models import db
 from config import Config
 
+
 login_manager = LoginManager()
 
 
@@ -18,10 +19,12 @@ def create_app():
 
     from views.home import home
     from views.auth import auth
+    from views.artworks import artworks
 
     # register blueprints
     _app.register_blueprint(home, url_prefix='/')
     _app.register_blueprint(auth, url_prefix='/auth')
+    _app.register_blueprint(artworks, url_prefix='/artworks')
 
     migrate = Migrate(_app, db)
 

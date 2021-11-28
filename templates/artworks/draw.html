@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Draw and share
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://unpkg.com/huebee@2/dist/huebee.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/canvas.css') }}">
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
+
+    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas-utils.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="d-flex">
+                    <div class="d-flex" style="flex-direction: column">
+                        <div class="d-flex" style="flex-direction: row">
+                            <div class="paint-col">
+                                <button
+                                    class="paint-tool btn btn-outline-dark"
+                                    onclick="changeTool(this)"
+                                    data-tool="brush"
+                                >
+                                    <i class="paint-tool icon-paint-brush"></i>
+                                </button>
+
+                                <button
+                                    class="paint-tool btn btn-outline-dark"
+                                    onclick="changeTool(this)"
+                                    data-tool="line"
+                                    style="width: 42px; height: 46.5px;"
+                                >
+                                    <p class="icon-line">\</p>
+                                </button>
+
+                                <button
+                                    class="paint-tool btn btn-outline-dark"
+                                    onclick="changeTool(this)"
+                                    data-tool="triangle"
+                                >
+                                    <i class="paint-tool icon-caret-up"></i>
+                                </button>
+                            </div>
+                            <div class="paint-col">
+                                <button
+                                    class="paint-tool btn btn-outline-dark"
+                                    onclick="changeTool(this)"
+                                    data-tool="rubber"
+                                    title="Rubber"
+                                >
+                                    <i class="paint-tool icon-fire"></i>
+                                </button>
+                                <button
+                                    class="paint-tool btn btn-outline-dark"
+                                    onclick="changeTool(this)"
+                                    data-tool="rect"
+                                >
+                                    <i class="paint-tool icon-square-o"></i>
+                                </button>
+
+                                <button
+                                    class="paint-tool btn btn-outline-dark"
+                                    onclick="changeTool(this)"
+                                    data-tool="circle"
+                                >
+                                    <i class="paint-tool icon-circle-o"></i>
+                                </button>
+
+                                <button
+                                    class="paint-tool btn btn-danger"
+                                    onclick="changeTool(this)"
+                                    data-tool="clear"
+                                >
+                                    <i class="paint-tool icon-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <input
+                            id="stroke-input"
+                            style="width: 5em"
+                            type="number"
+                            value="10"
+                            min="1"
+                            max="100"
+                            onkeydown="limitStroke(this, event)"
+                            oninput="changeStroke(this)"
+                        >
+                        <input id="color-input" class="color-input" value="#000000" data-huebee style="width: 5em"/>
+                    </div>
+                    <div id="canvas" style="margin-left: 2.5vw"></div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

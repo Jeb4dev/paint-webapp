@@ -1,0 +1,13 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.disable-list::before {
+    content: '' !important;
+}
+
+.paint-col {
+    display: flex;
+    flex-direction: column;
+}
