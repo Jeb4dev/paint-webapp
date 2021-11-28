@@ -34,7 +34,7 @@ def create_app():
     # Error Management
     @_app.errorhandler(404)
     def page_not_found(error):
-        return redirect(url_for('views.home'))
+        return redirect(url_for('index.index'))
 
     db.create_all(app=_app)
 
