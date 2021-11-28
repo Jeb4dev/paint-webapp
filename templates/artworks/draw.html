@@ -19,6 +19,13 @@
 
 {% block content %}
     <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <h3 style="color: red" align="center">{{ message }}</h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div class="row">
             <div class="col"></div>
             <div class="col">
@@ -112,6 +119,7 @@
                                 {{ form.title.label(align='center') }}
                                 {{ form.title(placeholder='Your awesome title') }}
                                 {{ form.image(id='image-input') }}
+                                {{ form.idempotency_key }}
                                 <center>{{ form.submit(onclick='postImage(event)') }}</center>
                             </form>
                         {% endif %}

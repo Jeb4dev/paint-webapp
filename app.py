@@ -4,7 +4,6 @@ from flask_login import LoginManager
 from models import db
 from config import Config
 
-
 login_manager = LoginManager()
 
 
@@ -45,7 +44,6 @@ def create_app():
 
 
 app = create_app()
-
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
