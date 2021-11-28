@@ -4,7 +4,7 @@ const state = {
     paths: [],
     color: '#000',
     lastClick: 0,
-    weight: 10
+    width: parseInt(document.getElementById('stroke-input').value)
 };
 
 const getRectCenter = (px, py, x, y) => {
@@ -32,6 +32,28 @@ const updateToolButtons = () => {
 };
 
 updateToolButtons();
+
+const limitStroke = (element, event) => {
+    if (event.key.length === 1) {
+        const re = /\d+/g;
+        if (event.key.match(re) === null) {
+            event.preventDefault();
+        }
+    }
+};
+
+const changeStroke = (element) => {
+    let value = parseInt(element.value);
+    const max = parseInt(element.max);
+    const min = parseInt(element.min);
+
+    if (value > max || value < min) {
+        value = max;
+    }
+
+    element.value = value;
+    state.width = value;
+};
 
 function changeTool(element) {
     const tool = element.attributes['data-tool'].value;
@@ -78,14 +100,11 @@ const drawLine = (px, py, x, y) => {
 
 const drawTriangle = (px, py, x, y) => {
     const center = getRectCenter(px, py, x, y);
-
     triangle(
         px, y,
         px + center.w / 2, py,
         x, y
     );
-
-
 }
 
 
@@ -96,13 +115,13 @@ function setup() {
 }
 
 function draw() {
-    background(255);
     noFill();
+    background(255);
 
     state.paths.forEach((point) => {
         const {px, py, x, y} = point;
         stroke(point.color);
-        strokeWeight(point.weight);
+        strokeWeight(point.width);
         if (point.tool === 'brush' || point.tool === 'rubber') {
             line(point.px, point.py, point.x, point.y);
         } else {
@@ -110,9 +129,9 @@ function draw() {
         }
     });
 
-    if (mouseIsPressed) {
+    if (mouseIsPressed && focused) {
         stroke(state.color);
-        strokeWeight(state.weight);
+        strokeWeight(state.width);
         if (state.tool === 'brush' || state.tool === 'rubber') {
             const point = {
                 px: pmouseX,
@@ -120,7 +139,7 @@ function draw() {
                 x: mouseX,
                 y: mouseY,
                 color: state.tool === 'rubber' ? '#fff' : state.color,
-                weight: state.weight,
+                width: state.width,
                 tool: state.tool
             };
             state.paths.push(point);
@@ -145,7 +164,7 @@ function mouseReleased() {
             x: mouseX,
             y: mouseY,
             color: state.tool === 'rubber' ? '#fff' : state.color,
-            weight: 10,
+            width: state.width,
             tool: state.tool
         };
         state.paths.push(point);
