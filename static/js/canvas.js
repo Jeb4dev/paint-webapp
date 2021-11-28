@@ -4,19 +4,8 @@ const state = {
     paths: [],
     color: '#000',
     lastClick: 0,
-    width: parseInt(document.getElementById('stroke-input').value)
-};
-
-const getRectCenter = (px, py, x, y) => {
-    const w = x - px;
-    const h = y - py;
-
-    return {
-        x: px + w / 2,
-        y: py + h / 2,
-        w,
-        h,
-    };
+    width: parseInt(document.getElementById('stroke-input').value),
+    buffer: null,
 };
 
 const toolButtons = document.getElementsByClassName('paint-tool');
@@ -58,7 +47,7 @@ const changeStroke = (element) => {
 function changeTool(element) {
     const tool = element.attributes['data-tool'].value;
     if (tool === 'clear') {
-        state.paths = [];
+        state.buffer.background(255);
         background(255);
     } else {
         state.tool = tool;
@@ -66,51 +55,13 @@ function changeTool(element) {
     }
 }
 
-const drawShape = (shape, px, py, x, y) => {
-    const drawFunctions = {
-        rect: drawRect,
-        circle: drawEllipse,
-        triangle: drawTriangle,
-        line: drawLine
-    };
-    drawFunctions[shape](px, py, x, y);
-}
-
-const drawRect = (px, py, x, y) => {
-    rect(
-        px, py,
-        x - px,
-        y - py
-    );
-};
-
-const drawEllipse = (px, py, x, y) => {
-    const center = getRectCenter(px, py, x, y);
-    ellipse(
-        center.x,
-        center.y,
-        center.w,
-        center.h
-    );
-};
-
-const drawLine = (px, py, x, y) => {
-    line(px, py, x, y);
-}
-
-const drawTriangle = (px, py, x, y) => {
-    const center = getRectCenter(px, py, x, y);
-    triangle(
-        px, y,
-        px + center.w / 2, py,
-        x, y
-    );
-}
-
 
 function setup() {
     const canvas = createCanvas(800, 800);
     canvas.parent('#canvas');
+    state.buffer = createGraphics(800, 800);
+    state.buffer.background(255);
+    state.buffer.noFill();
     background(255);
 }
 
@@ -118,16 +69,18 @@ function draw() {
     noFill();
     background(255);
 
-    state.paths.forEach((point) => {
-        const {px, py, x, y} = point;
-        stroke(point.color);
-        strokeWeight(point.width);
-        if (point.tool === 'brush' || point.tool === 'rubber') {
-            line(point.px, point.py, point.x, point.y);
-        } else {
-            drawShape(point.tool, px, py, x, y);
-        }
-    });
+    if (state.paths.length > 0) {
+        state.paths.forEach((point) => {
+            const {px, py, x, y} = point;
+            state.buffer.stroke(point.color);
+            state.buffer.strokeWeight(point.width);
+            drawShape(point.tool, px, py, x, y, state.buffer);
+        });
+        state.paths = [];
+    }
+
+    image(state.buffer, 0, 0, 800, 800);
+
 
     if (mouseIsPressed && focused) {
         stroke(state.color);
@@ -144,7 +97,7 @@ function draw() {
             };
             state.paths.push(point);
         } else {
-            drawShape(state.tool, state.lastClick.x, state.lastClick.y, mouseX, mouseY);
+            drawShape(state.tool, state.lastClick.x, state.lastClick.y, mouseX, mouseY, null);
         }
     }
 }
