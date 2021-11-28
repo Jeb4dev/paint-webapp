@@ -17,8 +17,7 @@ const getRectCenter = (px, py, x, y) => {
         w,
         h,
     };
-}
-
+};
 
 const toolButtons = document.getElementsByClassName('paint-tool');
 const updateToolButtons = () => {
@@ -30,7 +29,9 @@ const updateToolButtons = () => {
         }
     });
 
-}
+};
+
+updateToolButtons();
 
 function changeTool(element) {
     const tool = element.attributes['data-tool'].value;
@@ -43,6 +44,15 @@ function changeTool(element) {
     }
 }
 
+const drawShape = (shape, px, py, x, y) => {
+    const drawFunctions = {
+        rect: drawRect,
+        circle: drawEllipse,
+        triangle: drawTriangle,
+        line: drawLine
+    };
+    drawFunctions[shape](px, py, x, y);
+}
 
 const drawRect = (px, py, x, y) => {
     rect(
@@ -62,14 +72,20 @@ const drawEllipse = (px, py, x, y) => {
     );
 };
 
+const drawLine = (px, py, x, y) => {
+    line(px, py, x, y);
+}
+
 const drawTriangle = (px, py, x, y) => {
-    // TODO: it doesn't draw correct
     const center = getRectCenter(px, py, x, y);
+
     triangle(
-        px, py + center.h,
-        center.w / 2, py,
+        px, y,
+        px + center.w / 2, py,
         x, y
     );
+
+
 }
 
 
@@ -89,10 +105,8 @@ function draw() {
         strokeWeight(point.weight);
         if (point.tool === 'brush' || point.tool === 'rubber') {
             line(point.px, point.py, point.x, point.y);
-        } else if (point.tool === 'rect') {
-            drawRect(px, py, x, y)
-        } else if (point.tool === 'circle') {
-            drawEllipse(px, py, x, y);
+        } else {
+            drawShape(point.tool, px, py, x, y);
         }
     });
 
@@ -110,12 +124,8 @@ function draw() {
                 tool: state.tool
             };
             state.paths.push(point);
-        } else if (state.tool === 'rect') {
-            drawRect(state.lastClick.x, state.lastClick.y, mouseX, mouseY)
-        } else if (state.tool === 'circle') {
-            drawEllipse(state.lastClick.x, state.lastClick.y, mouseX, mouseY);
-        } else if (state.tool === 'triangle') {
-
+        } else {
+            drawShape(state.tool, state.lastClick.x, state.lastClick.y, mouseX, mouseY);
         }
     }
 }
