@@ -18,7 +18,6 @@ def account():
 @auth.route('/logout', methods=['GET'])
 def logout():
     logout_user()
-    flash("logged out successfully")
     return redirect(url_for('auth.account'))
 
 
@@ -36,7 +35,6 @@ def login():
         if user:
             if user.check_password(password):
                 login_user(user, remember=True)
-                flash("Invalid password")
                 return redirect(url_for('auth.account'))
             else:
                 flash("Invalid password")
@@ -48,7 +46,6 @@ def login():
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        flash("You are already logged in.")
         return redirect(url_for('auth.account'))
 
     form = RegisterForm()
@@ -64,7 +61,6 @@ def register():
             new_user = User.create(username, password)
             print(f"{username} registered")
             login_user(new_user, remember=True)
-            flash("Registering was successful")
             return redirect(url_for('auth.account'))
 
     return render_template('auth/register.html', form=form)
