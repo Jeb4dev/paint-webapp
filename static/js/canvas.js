@@ -1,12 +1,23 @@
+const SIZE = [720, 640];
+
 const state = {
     disabled: false,
     tool: 'brush',
     paths: [],
-    color: '#000',
+    color: document.getElementById('color-input').value,
     lastClick: 0,
     width: parseInt(document.getElementById('stroke-input').value),
     buffer: null,
 };
+
+const hueb = new Huebee('.color-input', {
+    notation: 'hex',
+
+});
+
+hueb.on('change', (color) => {
+    state.color = color;
+});
 
 const toolButtons = document.getElementsByClassName('paint-tool');
 const updateToolButtons = () => {
@@ -57,9 +68,9 @@ function changeTool(element) {
 
 
 function setup() {
-    const canvas = createCanvas(800, 800);
+    const canvas = createCanvas(SIZE[0], SIZE[1]);
     canvas.parent('#canvas');
-    state.buffer = createGraphics(800, 800);
+    state.buffer = createGraphics(SIZE[0], SIZE[1]);
     state.buffer.background(255);
     state.buffer.noFill();
     background(255);
@@ -79,7 +90,7 @@ function draw() {
         state.paths = [];
     }
 
-    image(state.buffer, 0, 0, 800, 800);
+    image(state.buffer, 0, 0, SIZE[0], SIZE[1]);
 
 
     if (mouseIsPressed && focused) {

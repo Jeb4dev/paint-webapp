@@ -4,6 +4,19 @@
     Draw and share
 {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="https://unpkg.com/huebee@2/dist/huebee.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/canvas.css') }}">
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
+
+    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas-utils.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -82,11 +95,7 @@
                             onkeydown="limitStroke(this, event)"
                             oninput="changeStroke(this)"
                         >
-                        <input
-                            data-jscolor="{}"
-                            value="#000000"
-                            style="width: 5em"
-                        >
+                        <input id="color-input" class="color-input" value="#000000" data-huebee style="width: 5em"/>
                     </div>
                     <div id="canvas" style="margin-left: 2.5vw"></div>
                 </div>
