@@ -10,13 +10,22 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/')
 def account():
-    return 'account page'
+    if current_user.is_authenticated:
+        return f'Hello {current_user.username}'
+    return redirect(url_for('auth.login'))
+
+
+@login_required
+@auth.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+    return redirect(url_for('auth.account'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return "Already authenticated"
+        return redirect(url_for('auth.account'))
 
     form = LoginForm()
 
@@ -34,6 +43,9 @@ def login():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('auth.account'))
+
     form = RegisterForm()
 
     if form.validate_on_submit():
