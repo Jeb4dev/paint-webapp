@@ -36,6 +36,7 @@ def login():
         if user:
             if user.check_password(password):
                 login_user(user, remember=True)
+                flash("Invalid password")
                 return redirect(url_for('auth.account'))
             else:
                 flash("Invalid password")
