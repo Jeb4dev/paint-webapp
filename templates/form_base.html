@@ -9,9 +9,19 @@
                     <div class="card-text">
                         <form method="post">
                             <h2 style="text-align: center">{{ form.submit.label.text }}</h2>
-                            {% if form.errors %}
-                                <div style="text-align: left">
+                            <div style="text-align: left">
+                                {% if form.errors %}
                                     <h3 style="color: rgb(var(--bs-danger-rgb));">Errors</h3>
+                                {% endif %}
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <li>{{ message }}</li>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                                {% if form.errors %}
+
                                     <ul>
                                         {% for field, errors in form.errors.items() %}
                                             <li>
@@ -25,8 +35,8 @@
 
                                         {% endfor %}
                                     </ul>
-                                </div>
-                            {% endif %}
+                                {% endif %}
+                            </div>
 
                             {% for field in form %}
                                 {% if field.flags.hidden %}
