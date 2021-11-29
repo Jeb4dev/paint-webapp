@@ -6,4 +6,4 @@ gallery = Blueprint('gallery', __name__)
 
 @gallery.get('/')
 def index():
-    return render_template('gallery/index.html', user=current_user)
+    return render_template('gallery/index.html', user=current_user, images=6)
