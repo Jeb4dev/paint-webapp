@@ -43,6 +43,11 @@ const limitStroke = (element, event) => {
     }
 };
 
+const postImage = () => {
+    const imgInput = document.getElementById('image-input');
+    imgInput.value = state.buffer.elt.toDataURL();
+}
+
 const changeStroke = (element) => {
     let value = parseInt(element.value);
     const max = parseInt(element.max);

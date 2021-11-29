@@ -14,6 +14,8 @@ class Artwork(db.Model):
 
     title = db.Column(db.String, nullable=False)
     filename = db.Column(db.String, nullable=False)
+    delete_url = db.Column(db.String)
+    idempotency_key = db.Column(db.String, nullable=False)
 
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
