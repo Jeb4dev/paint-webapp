@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+.title {
+  color:#FFF;
+  text-align:center;}
+.row{
+  width:100%;
+  display:flex;
+  justify-content:flex-start;
+  align-items:stretch;
+  flex-wrap:nowrap;
+  margin:auto;
+  padding:0.5% 2% 0.5% 2%;
+}
+.cell{
+  flex-grow:1;
+  flex-basis:33%;
+}
+.row_{
+  width:100%;
+  height:50vh;
+  padding:1% 1% 1% 1%;
+}
+#iwlg{
+  flex-basis:75%;
+  background-image:linear-gradient(#2eb90f,#2eb90f);
+  background-repeat:repeat;
+  background-position:left top;
+  background-attachment:scroll;
+  background-size:auto;
+  height:100%;
+  position:static;
+  display:block;
+}
+.image{
+  flex-basis:75%;
+  height:100%;
+  position:static;
+  display:block;
+}
+.image{
+  background-image:url("https://tipsmake.com/data/thumbs/how-to-draw-a-panda-using-microsoft-paint-thumb-AF4i6zNFr.jpg");
+  background-position:left top;
+  background-size:cover;
+  height:100%;
+  position:static;
+  display:block;
+}
+#ixsac{
+  flex-basis:75%;
+  height:100%;
+  position:relative;
+  display:block;
+  padding:5% 0 0 0;
+  background-image:linear-gradient(#c02323,#c02323);
+  background-repeat:repeat;
+  background-position:left top;
+  background-attachment:scroll;
+  background-size:auto;
+}
+.action_buttons{
+  display:none;
+  position:relative;
+  width:100%;
+  top:89%;
+  color:#000;
+  font-size:1.8vw;
+}
+.action_buttons a{
+  font-size:1.8vw;
+  color: #FFF;
+  text-decoration:none;
+}
+.action_buttons a:hover{
+  color: #FF9933;
+}
+.action_buttons a:active{
+  color: #FF8000;
+}
+.action_buttons div{
+  padding-left:5%;
+}
+.row_:hover .action_buttons { display: flex;}
+.row_:hover .action_buttons {background-color:#000;}
+
+
+@media (max-width: 768px){
+  .row{
+    flex-wrap:wrap;
+  }
+}
