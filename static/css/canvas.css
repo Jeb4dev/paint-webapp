@@ -9,3 +9,7 @@
     text-align: center;
     transform: translate(-10%, -25%);
 }
+
+.input-canvas {
+    width: 5em;
+}

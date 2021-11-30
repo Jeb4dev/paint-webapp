@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    {{ title }}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -8,7 +12,13 @@
                 <div class="card form-card">
                     <div class="card-text">
                         <form method="post">
-                            <h2 style="text-align: center">{{ form.submit.label.text }}</h2>
+                            <h2 style="text-align: center">
+                                {% if form_name %}
+                                    {{ form_name }}
+                                {% else %}
+                                    {{ form.submit.label.text }}
+                                {% endif %}
+                            </h2>
                             <div style="text-align: left">
                                 {% if form.errors %}
                                     <h3 style="color: rgb(var(--bs-danger-rgb));">Errors</h3>

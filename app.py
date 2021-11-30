@@ -1,9 +1,10 @@
 from flask import Flask, redirect, url_for
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from config import Config
-from models import db
 
+from models import db
+from config import Config
+from sockets.socketio import socketio
 
 login_manager = LoginManager()
 
@@ -16,6 +17,7 @@ def create_app():
     # init plugins
     db.init_app(_app)
     login_manager.init_app(_app)
+    socketio.init_app(_app)
 
     from views.home import home
     from views.auth import auth
@@ -52,6 +54,5 @@ def create_app():
 
 app = create_app()
 
-
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    socketio.run(app, port=8000, debug=True)

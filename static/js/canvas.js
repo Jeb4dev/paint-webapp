@@ -1,5 +1,6 @@
 const SIZE = [720, 640];
 
+let canvas = null;
 const state = {
     disabled: false,
     tool: 'brush',
@@ -42,6 +43,11 @@ const limitStroke = (element, event) => {
     }
 };
 
+const postImage = () => {
+    const imgInput = document.getElementById('image-input');
+    imgInput.value = state.buffer.elt.toDataURL();
+}
+
 const changeStroke = (element) => {
     let value = parseInt(element.value);
     const max = parseInt(element.max);
@@ -60,6 +66,8 @@ function changeTool(element) {
     if (tool === 'clear') {
         state.buffer.background(255);
         background(255);
+    } else if (tool === 'download') {
+        saveCanvas(canvas, `image-${Math.ceil(new Date() / 1000)}`, 'png');
     } else {
         state.tool = tool;
         updateToolButtons();
@@ -68,7 +76,7 @@ function changeTool(element) {
 
 
 function setup() {
-    const canvas = createCanvas(SIZE[0], SIZE[1]);
+    canvas = createCanvas(SIZE[0], SIZE[1]);
     canvas.parent('#canvas');
     state.buffer = createGraphics(SIZE[0], SIZE[1]);
     state.buffer.background(255);

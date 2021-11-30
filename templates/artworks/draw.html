@@ -19,6 +19,13 @@
 
 {% block content %}
     <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <h3 style="color: red" align="center">{{ message }}</h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div class="row">
             <div class="col"></div>
             <div class="col">
@@ -49,6 +56,13 @@
                                     data-tool="triangle"
                                 >
                                     <i class="paint-tool icon-caret-up"></i>
+                                </button>
+                                <button
+                                    class="paint-tool btn btn-primary"
+                                    onclick="changeTool(this)"
+                                    data-tool="download"
+                                >
+                                    <i class="paint-tool icon-download"></i>
                                 </button>
                             </div>
                             <div class="paint-col">
@@ -87,7 +101,7 @@
                         </div>
                         <input
                             id="stroke-input"
-                            style="width: 5em"
+                            class="input-canvas"
                             type="number"
                             value="10"
                             min="1"
@@ -95,9 +109,21 @@
                             onkeydown="limitStroke(this, event)"
                             oninput="changeStroke(this)"
                         >
-                        <input id="color-input" class="color-input" value="#000000" data-huebee style="width: 5em"/>
+                        <input id="color-input" class="color-input input-canvas" value="#000000" data-huebee/>
                     </div>
-                    <div id="canvas" style="margin-left: 2.5vw"></div>
+                    <div id="canvas" style="margin-left: 2.5vw; margin-right: 1vw"></div>
+                    <div style="flex-direction: column">
+                        {% if current_user.is_authenticated %}
+                            <form method="post" id="image-form" onsubmit="postImage()">
+                                {{ form.csrf_token }}
+                                {{ form.title.label(align='center') }}
+                                {{ form.title(placeholder='Your awesome title') }}
+                                {{ form.image(id='image-input') }}
+                                {{ form.idempotency_key }}
+                                <center>{{ form.submit(onclick='postImage(event)') }}</center>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="col"></div>
