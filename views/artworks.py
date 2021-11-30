@@ -63,4 +63,4 @@ def draw():
 
 @artworks.get('/guess')
 def guess():
-    pass
+    return render_template('artworks/game.html')
