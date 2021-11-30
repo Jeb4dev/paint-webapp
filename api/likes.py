@@ -2,13 +2,13 @@ from flask import Blueprint, request
 from flask_login import current_user, login_required
 
 from models.likes import Likes
-from app import db
+from models import db
 
-api = Blueprint('api', __name__)
+api_likes = Blueprint('api', __name__)
 
 
 @login_required
-@api.route('/likes/add', methods=['POST'])
+@api_likes.route('/add', methods=['POST'])
 def add_like():
     user_id = current_user.id
     artwork_id = request.args.get('artwork_id', 0, type=int)
@@ -23,7 +23,7 @@ def add_like():
 
 
 @login_required
-@api.route('/likes/remove', methods=['POST'])
+@api_likes.route('/remove', methods=['POST'])
 def remove_like():
     user_id = current_user.id
     artwork_id = request.args.get('artwork_id', 0, type=int)
@@ -36,7 +36,7 @@ def remove_like():
         return False
 
 
-@api.route('/likes/get/count', methods=['GET'])
+@api_likes.route('/get/count', methods=['GET'])
 def get_like_count():
     artwork_id = request.args.get('artwork_id', 0, type=int)
     likes_count = Likes.query.filter_by(artwork_id=artwork_id).count()

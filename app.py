@@ -1,8 +1,8 @@
 from flask import Flask, redirect, url_for
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from models import db
 from config import Config
+from models import db
 
 
 login_manager = LoginManager()
@@ -21,14 +21,16 @@ def create_app():
     from views.auth import auth
     from views.artworks import artworks
     from views.gallery import gallery
-    # from api.likes import api
+    from api.likes import api_likes
+    from api.images import api_images
 
     # register blueprints
     _app.register_blueprint(home, url_prefix='/')
     _app.register_blueprint(auth, url_prefix='/auth')
     _app.register_blueprint(artworks, url_prefix='/artworks')
     _app.register_blueprint(gallery, url_prefix='/gallery')
-    # _app.register_blueprint(api, url_prefix='/api')
+    _app.register_blueprint(api_likes, url_prefix='/api/likes')
+    _app.register_blueprint(api_images, url_prefix='/api/images')
 
     migrate = Migrate(_app, db)
 
