@@ -4,15 +4,16 @@ from urllib.parse import urlencode
 from uuid import uuid4
 from pprint import pprint
 
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, session, redirect, url_for
 from flask_login import current_user
 
 from forms.upload import UploadForm
+from forms.game import GameNameForm
 from models import db
 from models.artwork import Artwork
 from config import Config
 
-artworks = Blueprint('images', __name__)
+artworks = Blueprint('artworks', __name__)
 
 
 @artworks.get('/')
@@ -63,4 +64,19 @@ def draw():
 
 @artworks.get('/guess')
 def guess():
+    if current_user.is_authenticated:
+        session['name'] = current_user.username
+    if 'name' not in session:
+        return redirect(url_for('artworks.guess_name'))
     return render_template('artworks/game.html')
+
+
+@artworks.route('/guess/name', methods=['GET', 'POST'])
+def guess_name():
+    form = GameNameForm()
+    if current_user.is_authenticated:
+        return redirect(url_for('artworks.guess'))
+    if form.validate_on_submit():
+        session['name'] = form.name.data
+        return redirect(url_for('artworks.guess'))
+    return render_template('form_base.html', form=form, title="Draw and Guess", form_name="Your name")
