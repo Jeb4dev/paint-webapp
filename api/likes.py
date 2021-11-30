@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from models.likes import Likes
 from models import db
 
-api_likes = Blueprint('api', __name__)
+api_likes = Blueprint('likes', __name__)
 
 
 @login_required
