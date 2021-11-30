@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from models.artwork import Artwork
 from models import db
 
-api_images = Blueprint('api', __name__)
+api_images = Blueprint('images', __name__)
 
 
 @login_required
