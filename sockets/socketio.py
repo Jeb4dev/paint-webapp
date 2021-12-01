@@ -2,6 +2,7 @@ from uuid import uuid4
 from typing import List
 
 from flask import request, session
+from flask_login import current_user
 from flask_socketio import SocketIO, emit
 
 from .path import Point
@@ -16,6 +17,10 @@ path: List[Point] = []
 def on_connect():
     if 'name' not in session:
         return False
+
+    if current_user.is_authenticated:
+        session['name'] = current_user.username
+
     name = session['name']
 
     if name in users:
@@ -48,3 +53,11 @@ def on_undo():
     global path
     path = path[:-1]
     emit('undo', path[-10:], broadcast=True)
+
+
+@socketio.on('chat')
+def on_chat(message):
+    emit('chat', {
+        "username": session['name'],
+        "message": message
+    }, broadcast=True)
