@@ -31,7 +31,7 @@
             </ul>
             <div class="d-flex">
                 {% if current_user.is_authenticated %}
-                    <i class="icon-user"></i>
+                    <a href="/auth/logout" title="Logout"><i class="icon-user"></i></a>
                 {% else %}
                     <button type="button" class="btn btn-primary">
                         Sign in
