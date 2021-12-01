@@ -9,6 +9,16 @@ const state = {
     lastClick: 0,
     width: parseInt(document.getElementById('stroke-input').value),
     buffer: null,
+
+    clear() {
+        state.buffer.background(255);
+        background(255);
+        state.paths = [];
+    },
+
+    undo() {
+        state.paths = state.paths.slice(0, -1);
+    }
 };
 
 const hueb = new Huebee('.color-input', {
@@ -43,6 +53,10 @@ const limitStroke = (element, event) => {
     }
 };
 
+const isSocket = () => typeof socket !== 'undefined';
+const checkCoord = (x, y) => x >= 0 && y >= 0 && x <= SIZE[0] && y <= SIZE[1];
+const checkLastClick = () => checkCoord(state.lastClick.x, state.lastClick.y);
+
 const postImage = () => {
     const imgInput = document.getElementById('image-input');
     imgInput.value = state.buffer.elt.toDataURL();
@@ -64,10 +78,18 @@ const changeStroke = (element) => {
 function changeTool(element) {
     const tool = element.attributes['data-tool'].value;
     if (tool === 'clear') {
-        state.buffer.background(255);
-        background(255);
+        if (isSocket()) {
+            socket.emit('clear');
+        }
+        state.clear();
     } else if (tool === 'download') {
         saveCanvas(canvas, `image-${Math.ceil(new Date() / 1000)}`, 'png');
+    } else if (tool === 'undo') {
+        if (isSocket()) {
+            socket.emit('undo');
+        } else {
+            state.undo();
+        }
     } else {
         state.tool = tool;
         updateToolButtons();
@@ -88,35 +110,51 @@ function draw() {
     noFill();
     background(255);
 
-    if (state.paths.length > 0) {
-        state.paths.forEach((point) => {
+    if (state.paths.length > 10) {
+        state.paths.slice(0, -10).forEach((point) => {
             const {px, py, x, y} = point;
             state.buffer.stroke(point.color);
             state.buffer.strokeWeight(point.width);
             drawShape(point.tool, px, py, x, y, state.buffer);
         });
-        state.paths = [];
+        state.paths = state.paths.slice(-10);
     }
 
     image(state.buffer, 0, 0, SIZE[0], SIZE[1]);
+
+
+    state.paths.slice(-10).forEach((point) => {
+        const {px, py, x, y} = point;
+        stroke(point.color);
+        strokeWeight(point.width);
+        drawShape(point.tool, px, py, x, y, null);
+    });
 
 
     if (mouseIsPressed && focused) {
         stroke(state.color);
         strokeWeight(state.width);
         if (state.tool === 'brush' || state.tool === 'rubber') {
-            const point = {
-                px: pmouseX,
-                py: pmouseY,
-                x: mouseX,
-                y: mouseY,
-                color: state.tool === 'rubber' ? '#fff' : state.color,
-                width: state.width,
-                tool: state.tool
-            };
-            state.paths.push(point);
+            if (checkCoord(pmouseX, pmouseY) && checkCoord(mouseX, mouseY)) {
+                const point = {
+                    px: pmouseX,
+                    py: pmouseY,
+                    x: mouseX,
+                    y: mouseY,
+                    color: state.tool === 'rubber' ? '#fff' : state.color,
+                    width: state.width,
+                    tool: state.tool
+                };
+                state.paths.push(point);
+                if (isSocket()) {
+                    socket.emit('add_paths', [point]);
+                }
+
+            }
         } else {
-            drawShape(state.tool, state.lastClick.x, state.lastClick.y, mouseX, mouseY, null);
+            if (checkLastClick()) {
+                drawShape(state.tool, state.lastClick.x, state.lastClick.y, mouseX, mouseY, null);
+            }
         }
     }
 }
@@ -129,7 +167,7 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-    if (state.tool !== 'brush' && state.tool !== 'rubber') {
+    if (state.tool !== 'brush' && state.tool !== 'rubber' && checkLastClick()) {
         const point = {
             px: state.lastClick.x,
             py: state.lastClick.y,
@@ -140,5 +178,8 @@ function mouseReleased() {
             tool: state.tool
         };
         state.paths.push(point);
+        if (isSocket()) {
+            socket.emit('add_paths', [point]);
+        }
     }
 }
