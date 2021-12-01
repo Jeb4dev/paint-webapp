@@ -28,15 +28,24 @@
                 <li class="nav-item disable-list">
                     <a class="nav-link" href="/artworks/draw">Draw</a>
                 </li>
+                <li class="nav-item disable-list">
+                    <a class="nav-link" href="/artworks/guess">Play</a>
+                </li>
+                <li class="nav-item disable-list">
+                    <a class="nav-link" href="/gallery">Gallery</a>
+                </li>
             </ul>
             <div class="d-flex">
                 {% if current_user.is_authenticated %}
-                    <a href="/auth/logout" title="Logout"><i class="icon-user"></i></a>
+                    <a href="/auth/logout" title="Logout" style="text-decoration:none;"><i class="icon-sign-out"></i></a>
+                    <a href="https://github.com/JesperKauppinen/paint-webapp" target="_blank" title="Github" style="text-decoration:none; padding-left:2vw;"><i class="icon-github"></i></a>
                 {% else %}
-                    <button type="button" class="btn btn-primary">
-                        Sign in
-                    </button>
 
+                    <a href="/auth/login" style="text-decoration:none; padding-right:10px; padding-left:10px;"><button type="button" class="btn btn-secondary">
+                        Sign in</button></a>
+                <a href="/auth/login" style="text-decoration:none;"><button type="button" class="btn btn-secondary">
+                        Register</button></a>
+                    <a href="https://github.com/JesperKauppinen/paint-webapp" target="_blank" title="Github" style="text-decoration:none; padding-left:2vw;"><i class="icon-github"></i></a>
                 {% endif %}
             </div>
         </div>
