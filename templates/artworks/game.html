@@ -1,19 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'artworks/base_canvas.html' %}
 
 {% block title %}
     Draw and guess Game
 {% endblock %}
 
 {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
     <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
             integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
             crossorigin="anonymous"></script>
-    <script type="application/javascript" src="{{ url_for('static', filename='js/sockets.js') }}"></script>
 
+    <script type="application/javascript" src="{{ url_for('static', filename='js/sockets.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas-utils.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas.js') }}"></script>
 {% endblock %}
 
-{% block content %}
-
-
-
+{% block right_column %}
+    <h1>Chat</h1>
 {% endblock %}
