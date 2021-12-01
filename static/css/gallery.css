@@ -19,7 +19,7 @@
 }
 .row_{
   width:100%;
-  height:50vh;
+  height:58vh;
   padding:1% 1% 1% 1%;
 }
 #iwlg{
@@ -43,6 +43,7 @@
   background-image:url("https://tipsmake.com/data/thumbs/how-to-draw-a-panda-using-microsoft-paint-thumb-AF4i6zNFr.jpg");
   background-position:left top;
   background-size:cover;
+  background-repeat: no-repeat;
   height:100%;
   position:static;
   display:block;
@@ -68,6 +69,7 @@
   font-size:1.8vw;
 }
 .action_buttons a{
+  cursor:pointer;
   font-size:1.8vw;
   color: #FFF;
   text-decoration:none;
@@ -80,6 +82,11 @@
 }
 .action_buttons div{
   padding-left:5%;
+
+.action_buttons a {color: #FF0000;}
+#liked:hover {color:#FF9933;}
+#liked.active {color:#FF8000;}
+
 }
 .row_:hover .action_buttons { display: flex;}
 .row_:hover .action_buttons {background-color:#000;}
