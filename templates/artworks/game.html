@@ -17,5 +17,18 @@
 {% endblock %}
 
 {% block right_column %}
-    <h1>Chat</h1>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="cart-title" style="text-align: center">Chat</h3>
+            <div class="card-text">
+                <ul class="list-group" id="chat-ul">
+                </ul>
+                <center>
+                    <input type="text" placeholder="Type your guess" id="chat-input" onkeypress="onChatKeypress(event)">
+                    <button id="chat-submit" onclick="chatSend()">Enter</button>
+                </center>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}
