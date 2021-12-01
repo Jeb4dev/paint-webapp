@@ -10,7 +10,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/')
 def account():
     if current_user.is_authenticated:
-        return f'Hello {current_user.username}'
+        return redirect(url_for('artworks.draw'))
     return redirect(url_for('auth.login'))
 
 
