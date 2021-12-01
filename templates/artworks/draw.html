@@ -37,6 +37,7 @@
                                     class="paint-tool btn btn-outline-dark"
                                     onclick="changeTool(this)"
                                     data-tool="brush"
+                                    title="Brush"
                                 >
                                     <i class="paint-tool icon-paint-brush"></i>
                                 </button>
@@ -54,6 +55,7 @@
                                     class="paint-tool btn btn-outline-dark"
                                     onclick="changeTool(this)"
                                     data-tool="triangle"
+                                    title="Triangle"
                                 >
                                     <i class="paint-tool icon-caret-up"></i>
                                 </button>
@@ -61,6 +63,7 @@
                                     class="paint-tool btn btn-primary"
                                     onclick="changeTool(this)"
                                     data-tool="download"
+                                    title="Download as png"
                                 >
                                     <i class="paint-tool icon-download"></i>
                                 </button>
@@ -78,6 +81,7 @@
                                     class="paint-tool btn btn-outline-dark"
                                     onclick="changeTool(this)"
                                     data-tool="rect"
+                                    title="Rectangle"
                                 >
                                     <i class="paint-tool icon-square-o"></i>
                                 </button>
@@ -86,6 +90,7 @@
                                     class="paint-tool btn btn-outline-dark"
                                     onclick="changeTool(this)"
                                     data-tool="circle"
+                                    title="Circle"
                                 >
                                     <i class="paint-tool icon-circle-o"></i>
                                 </button>
@@ -94,6 +99,7 @@
                                     class="paint-tool btn btn-danger"
                                     onclick="changeTool(this)"
                                     data-tool="clear"
+                                    title="Clear everything (reset)"
                                 >
                                     <i class="paint-tool icon-trash"></i>
                                 </button>
@@ -108,8 +114,9 @@
                             max="100"
                             onkeydown="limitStroke(this, event)"
                             oninput="changeStroke(this)"
+                            title="Thickness"
                         >
-                        <input id="color-input" class="color-input input-canvas" value="#000000" data-huebee/>
+                        <input id="color-input" class="color-input input-canvas" value="#000000" data-huebee title="Select color"/>
                     </div>
                     <div id="canvas" style="margin-left: 2.5vw; margin-right: 1vw"></div>
                     <div style="flex-direction: column">
@@ -117,10 +124,10 @@
                             <form method="post" id="image-form" onsubmit="postImage()">
                                 {{ form.csrf_token }}
                                 {{ form.title.label(align='center') }}
-                                {{ form.title(placeholder='Your awesome title') }}
+                                {{ form.title(placeholder='Your awesome title', title='please give a name for this artwork.') }}
                                 {{ form.image(id='image-input') }}
                                 {{ form.idempotency_key }}
-                                <center>{{ form.submit(onclick='postImage(event)') }}</center>
+                                <center>{{ form.submit(onclick='postImage(event)', title='Upload image to gallery.') }}</center>
                             </form>
                         {% endif %}
                     </div>
