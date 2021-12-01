@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 
 from models.artwork import Artwork
 from models import db
-
+#  TODO: Check if this is used
 api_images = Blueprint('images', __name__)
 
 
