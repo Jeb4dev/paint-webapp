@@ -53,8 +53,8 @@ def draw():
 
                 db.session.add(artwork)
                 db.session.commit()
-                # TODO: redirect to image page
-                return artwork.filename
+                return render_template('artworks/draw.html', form=form)
+
             else:
                 flash('Unable to upload image due hosting error')
         else:
