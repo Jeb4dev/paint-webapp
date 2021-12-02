@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for
-from flask_login import login_user, login_required, logout_user, current_user
+from flask import Blueprint, render_template
+from flask_login import current_user
 from models.artwork import Artwork
 from models.user import User
 from models.likes import Likes
