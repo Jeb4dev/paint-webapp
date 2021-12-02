@@ -5,6 +5,7 @@
 This project was made as part of the weekly programming challenge hosted by [DevJam].
 The project was made for learning purposes. Made by Jeb and mihett05.
 
+[Live Demo](https://art-race.herokuapp.com)
 ### Gallery Page
 ![image](https://user-images.githubusercontent.com/76889226/144343862-15f47c4e-eb75-47e0-a56d-3ab615b37229.png)
 
