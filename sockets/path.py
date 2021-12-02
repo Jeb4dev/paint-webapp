@@ -10,3 +10,4 @@ class Point:
     color: str
     width: int
     tool: str
+    fulfill: bool

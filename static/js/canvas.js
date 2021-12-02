@@ -145,7 +145,7 @@ function draw() {
     });
 
 
-    if (mouseIsPressed && focused) {
+    if (!state.disabled && mouseIsPressed && focused) {
         doFill(state.fulfill, state.color);
         stroke(state.color);
         strokeWeight(state.width);
@@ -184,7 +184,7 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-    if (state.tool !== 'brush' && state.tool !== 'rubber' && checkLastClick()) {
+    if (!state.disabled && state.tool !== 'brush' && state.tool !== 'rubber' && checkLastClick()) {
         const point = {
             px: state.lastClick.x,
             py: state.lastClick.y,
