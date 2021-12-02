@@ -9,6 +9,7 @@ const state = {
     lastClick: 0,
     width: parseInt(document.getElementById('stroke-input').value),
     buffer: null,
+    fulfill: false,
 
     clear() {
         state.buffer.background(255);
@@ -31,6 +32,8 @@ hueb.on('change', (color) => {
 });
 
 const toolButtons = document.getElementsByClassName('paint-tool');
+const fulfillButton = document.getElementById('fulfill-button');
+
 const updateToolButtons = () => {
     Array.from(toolButtons).forEach((button) => {
         button.className = button.className.replace('btn-dark', 'btn-outline-dark');
@@ -40,6 +43,10 @@ const updateToolButtons = () => {
         }
     });
 
+
+    if (state.fulfill) {
+        fulfillButton.className = fulfillButton.className.replace('btn-outline-dark', 'btn-dark');
+    }
 };
 
 updateToolButtons();
@@ -90,10 +97,13 @@ function changeTool(element) {
         } else {
             state.undo();
         }
+    } else if (tool === 'fulfill') {
+        state.fulfill = !state.fulfill;
     } else {
         state.tool = tool;
-        updateToolButtons();
     }
+
+    updateToolButtons();
 }
 
 
@@ -113,9 +123,11 @@ function draw() {
     if (state.paths.length > 10) {
         state.paths.slice(0, -10).forEach((point) => {
             const {px, py, x, y} = point;
+            doFill(point.fulfill, point.color, state.buffer);
             state.buffer.stroke(point.color);
             state.buffer.strokeWeight(point.width);
             drawShape(point.tool, px, py, x, y, state.buffer);
+            noFill();
         });
         state.paths = state.paths.slice(-10);
     }
@@ -125,13 +137,16 @@ function draw() {
 
     state.paths.slice(-10).forEach((point) => {
         const {px, py, x, y} = point;
+        doFill(point.fulfill, point.color);
         stroke(point.color);
         strokeWeight(point.width);
         drawShape(point.tool, px, py, x, y, null);
+        noFill();
     });
 
 
     if (mouseIsPressed && focused) {
+        doFill(state.fulfill, state.color);
         stroke(state.color);
         strokeWeight(state.width);
         if (state.tool === 'brush' || state.tool === 'rubber') {
@@ -143,7 +158,8 @@ function draw() {
                     y: mouseY,
                     color: state.tool === 'rubber' ? '#fff' : state.color,
                     width: state.width,
-                    tool: state.tool
+                    tool: state.tool,
+                    fulfill: state.fulfill
                 };
                 state.paths.push(point);
                 if (isSocket()) {
@@ -156,6 +172,7 @@ function draw() {
                 drawShape(state.tool, state.lastClick.x, state.lastClick.y, mouseX, mouseY, null);
             }
         }
+        noFill();
     }
 }
 
@@ -175,7 +192,8 @@ function mouseReleased() {
             y: mouseY,
             color: state.tool === 'rubber' ? '#fff' : state.color,
             width: state.width,
-            tool: state.tool
+            tool: state.tool,
+            fulfill: state.fulfill
         };
         state.paths.push(point);
         if (isSocket()) {
