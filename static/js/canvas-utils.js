@@ -52,3 +52,11 @@ const drawTriangle = (px, py, x, y, buffer = null) => {
         x, y
     );
 };
+
+const doFill = (needFill, color, buffer = null) => {
+    if (needFill) {
+        (buffer || window).fill(color);
+    } else {
+        (buffer || window).noFill();
+    }
+}
