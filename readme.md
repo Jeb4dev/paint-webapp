@@ -44,7 +44,7 @@ Create digital artwork on a canvas on the web to share online and also export as
 - ✔️ User can upload their artwork to the server
 - ✔️ All artworks are listed in Gallery
 - ❌    User get can choose word to draw
-- ❌    Other users try to guess this word
+-  ✔️ Other users try to guess this word
 
 
 
