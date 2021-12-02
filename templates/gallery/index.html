@@ -1,18 +1,15 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Gallery
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript" src="{{ url_for('static', filename='js/likes.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <script>
-
-        const callApi = (action, artwork_id) => {
-            if (action !== 'add' && action !== 'remove') {
-                throw new TypeError('Action can be \'add\' or \'remove\'');
-            }
-
-            fetch(`/api/likes/${action}?artwork_id=${artwork_id}`, {
-                method: 'POST',
-                credentials: 'include'
-            });
-        };
 
         function forceDownload(link, filename) {
             var url = link;
@@ -41,7 +38,7 @@
             var likes = document.getElementById('likes-' + id);
 
             likes.innerHTML = parseInt(likes.innerHTML) + 1
-            console.log(123);
+
             callApi('add', id);
 
             like.style.display = "none";
