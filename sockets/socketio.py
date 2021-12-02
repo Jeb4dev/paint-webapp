@@ -6,11 +6,13 @@ from flask_login import current_user
 from flask_socketio import SocketIO, emit
 
 from .path import Point
+from .state import GameState
 
 socketio = SocketIO(logger=True, cors_allowed_origins="*", async_mode="eventlet")
 
 users = dict()
 path: List[Point] = []
+state: GameState
 
 
 @socketio.on('connect')
@@ -27,8 +29,17 @@ def on_connect():
         name = session['name'] + '-' + str(uuid4()).split('-')[-1]
         session['name'] = name
 
-    users[name] = request.sid
+    state.connect(request.sid, name)
+    emit('user_connected', name, broadcast=True)
+    emit('state_changed', state.state.name)
     on_get_paths()
+
+
+@socketio.on('disconnect')
+def on_disconnect():
+    if request.sid in state.users:
+        emit('user_left', state.users[request.sid])
+    state.disconnect(request.sid)
 
 
 @socketio.on('add_paths')
@@ -57,7 +68,12 @@ def on_undo():
 
 @socketio.on('chat')
 def on_chat(message):
+    right = state.chat(request.sid, message)
     emit('chat', {
         "username": session['name'],
-        "message": message
+        "message": message,
+        "completed": right
     }, broadcast=True)
+
+
+state = GameState(on_clear)
