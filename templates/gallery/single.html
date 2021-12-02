@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    {{ artworks.title }}
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript" src="{{ url_for('static', filename='js/likes.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <script>
 
-        function forceDownload(link, filename){
+        function forceDownload(link, filename) {
             var url = link;
             link.innerText = "Working...";
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url, true);
             xhr.responseType = "blob";
-            xhr.onload = function(){
+            xhr.onload = function () {
                 var urlCreator = window.URL || window.webkitURL;
                 var imageUrl = urlCreator.createObjectURL(this.response);
                 var tag = document.createElement('a');
@@ -19,7 +27,7 @@
                 document.body.appendChild(tag);
                 tag.click();
                 document.body.removeChild(tag);
-                link.innerText="Download Image";
+                link.innerText = "Download Image";
             }
             xhr.send();
         }
@@ -31,7 +39,7 @@
 
             likes.innerHTML = parseInt(likes.innerHTML) + 1
 
-            // add like api call
+            callApi('add', id);
 
             like.style.display = "none";
             unlike.style.display = "inline-block";
@@ -44,14 +52,14 @@
 
             likes.innerHTML = parseInt(likes.innerHTML) - 1
 
-            // add remove like api call
+            callApi('remove', id);
 
             unlike.style.display = "none";
             like.style.display = "inline-block";
         }
 
     </script>
-    <h1 class="title">{{artworks.title}}</h1>
+    <h1 class="title">{{ artworks.title }}</h1>
     <div class="cell">
         <div class="row_">
           <div class="cell image" style="background-image:url('{{artworks.href}}'); height:70vh; width:80vh; margin:0px 30vw 0px 30vw;">
@@ -160,31 +168,42 @@
                                     </div>
                                 </a>
 
-              </div>
+                </div>
 
-              <div class="action_buttons" style="top:82%;">
-                  <div class="cell">
-                    <a href="#author" title="Author" id="author-{{artworks.owner_id}}">{{artworks.owner_name}}</a>
-                  </div>
-                  <div class="cell">
-                    <a href="#likes" title="Likes" id="likes-{{artworks.artwork_id}}">{{artworks.like_count}}</a>
-                  </div>
-                  <div class="cell">
-                      {% if like_status %}
-                      <a href="#unlike" onclick="unlike('{{artworks.artwork_id}}')" title="Unlike" id="unlike-{{artworks.artwork_id}}" style="display:inline-block; color:red;"><i class="fa fa-heart"></i></a>
-                      <a href="#like" onclick="like('{{artworks.artwork_id}}')" title="Like" id="like-{{artworks.artwork_id}}" style="display:none; "><i class="fa fa-heart-o"></i></a>
-                      {% else %}
-                      <a href="#unlike" onclick="unlike('{{artworks.artwork_id}}')" title="Unlike" id="unlike-{{artworks.artwork_id}}" style="display:none; color:red;"><i class="fa fa-heart"></i></a>
-                      <a href="#like" onclick="like('{{artworks.artwork_id}}')" title="Like" id="like-{{artworks.artwork_id}}" style="display:inline-block; "><i class="fa fa-heart-o"></i></a>
-                      {% endif %}
+                <div class="action_buttons" style="top:82%;">
+                    <div class="cell">
+                        <a href="#author" title="Author"
+                           id="author-{{ artworks.owner_id }}">{{ artworks.owner_name }}</a>
+                    </div>
+                    <div class="cell">
+                        <a href="#likes" title="Likes"
+                           id="likes-{{ artworks.artwork_id }}">{{ artworks.like_count }}</a>
+                    </div>
+                    <div class="cell">
+                        {% if like_status %}
+                            <a href="#unlike" onclick="unlike('{{ artworks.artwork_id }}')" title="Unlike"
+                               id="unlike-{{ artworks.artwork_id }}" style="display:inline-block; color:red;"><i
+                                class="fa fa-heart"></i></a>
+                            <a href="#like" onclick="like('{{ artworks.artwork_id }}')" title="Like"
+                               id="like-{{ artworks.artwork_id }}" style="display:none; "><i class="fa fa-heart-o"></i></a>
+                        {% else %}
+                            <a href="#unlike" onclick="unlike('{{ artworks.artwork_id }}')" title="Unlike"
+                               id="unlike-{{ artworks.artwork_id }}" style="display:none; color:red;"><i
+                                class="fa fa-heart"></i></a>
+                            <a href="#like" onclick="like('{{ artworks.artwork_id }}')" title="Like"
+                               id="like-{{ artworks.artwork_id }}" style="display:inline-block; "><i
+                                class="fa fa-heart-o"></i></a>
+                        {% endif %}
 
-                  </div>
-                  <div class="cell">
-                    <a href="#download" title="Download" id="download-{{artworks.artwork_id}}" onclick="forceDownload('{{artworks.href}}', '{{ artworks.title + '-made-in-online-paint-by-' + artworks.owner_name }}')"><i class="fa fa-arrow-down "></i></a>
-                  </div>
+                    </div>
+                    <div class="cell">
+                        <a href="#download" title="Download" id="download-{{ artworks.artwork_id }}"
+                           onclick="forceDownload('{{ artworks.href }}', '{{ artworks.title + '-made-in-online-paint-by-' + artworks.owner_name }}')"><i
+                            class="fa fa-arrow-down "></i></a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
 {% endblock %}
