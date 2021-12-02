@@ -5,11 +5,12 @@
 This project was made as part of the weekly programming challenge hosted by [DevJam].
 The project was made for learning purposes. Made by Jeb and mihett05.
 
-[Live Demo](https://art-race.herokuapp.com)
+
+## [Live Demo](https://art-race.herokuapp.com)
 ### Gallery Page
 ![image](https://user-images.githubusercontent.com/76889226/144343862-15f47c4e-eb75-47e0-a56d-3ab615b37229.png)
 
-### Drawing in Guessing game
+### Drawing in Guessing game (like scribble.io)
 ![image](https://user-images.githubusercontent.com/76889226/144343961-fc555104-fd68-4764-9fd8-d36898d5e250.png)
 
 
@@ -25,18 +26,25 @@ Create digital artwork on a canvas on the web to share online and also export as
 
 ##### 📑User Stories
 
--   [x] User can draw in a `canvas` using the mouse
--   [x] User can change the color
--   [x] User can change the size of the tool
--   [x] User can press a button to clear the `canvas`
+-   ✔️ User can draw in a `canvas` using the mouse
+-   ✔️ User can change the color
+-   ✔️ User can change the size of the tool
+-   ✔️ User can press a button to clear the `canvas`
 
 ##### 🌟 Bonus features (optional)
 
--   [x] User can save the artwork as an image (`.png`, `.jpg`, etc format)
--   [x] User can draw different shapes (`rectangle`, `circle`, `star`, etc)
--   [x] User can share the artwork on social media
--   [x] Users can start a game, and compete in a game of Pictionary
+-   ✔️ User can save the artwork as an image (`.png`, `.jpg`, etc format)
+-   ✔️ User can draw different shapes (`rectangle`, `circle`, `star`, etc)
+-   ✔️ User can share the artwork on social media
+-   ✔️ Users can start a game, and compete in a game of Pictionary
 
+##### ✨ Custom features (not part of the challenge)
+- ✔️ Users can like images
+- ✔️ Users can go same session and chat
+- ✔️ User can upload their artwork to the server
+- ✔️ All artworks are listed in Gallery
+- ❌    User get can choose word to draw
+- ❌    Other users try to guess this word
 
 
 
@@ -96,6 +104,9 @@ Maybe you would like to work with us, hit me up and let's talk. :)
 - [icons8] - Icon in svg.
 - [emojipedia] - Social media sharing buttons.
 - [Handdrawn] - Hand drawn font and icons
+
+## License
+MIT
 
 
    [Flask]: <https://flask.palletsprojects.com/en/2.0.x/>

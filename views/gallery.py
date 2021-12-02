@@ -12,7 +12,7 @@ def index():
     all_artworks = Artwork.query.all()
     all_artwork_details = []
     for artwork_obj in all_artworks:
-        if Likes.query.filter_by(artwork_id=artwork_obj.owner_id, user_id=artwork_obj.owner_id).first():
+        if Likes.query.filter_by(artwork_id=artwork_obj.id, user_id=artwork_obj.owner_id).first():
             like_status = True
         else:
             like_status = False
