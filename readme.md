@@ -97,6 +97,9 @@ Maybe you would like to work with us, hit me up and let's talk. :)
 - [emojipedia] - Social media sharing buttons.
 - [Handdrawn] - Hand drawn font and icons
 
+## License
+MIT
+
 
    [Flask]: <https://flask.palletsprojects.com/en/2.0.x/>
    [Flask-login]: <https://flask-login.readthedocs.io/en/latest/>
