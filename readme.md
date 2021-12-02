@@ -5,10 +5,12 @@
 This project was made as part of the weekly programming challenge hosted by [DevJam].
 The project was made for learning purposes. Made by Jeb and mihett05.
 
+### Gallery Page
 ![image](https://user-images.githubusercontent.com/76889226/144343862-15f47c4e-eb75-47e0-a56d-3ab615b37229.png)
-Gallery Page
+
+### Drawing in Guessing game
 ![image](https://user-images.githubusercontent.com/76889226/144343961-fc555104-fd68-4764-9fd8-d36898d5e250.png)
-Drawing in Guessing game
+
 
 
 ## About the Challenge
