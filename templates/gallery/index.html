@@ -196,7 +196,7 @@
                                        id="likes-{{ artworks[i].artwork_id }}">{{ artworks[i].like_count }}</a>
                                 </div>
                                 <div class="cell">
-                                    {% if like_status %}
+                                    {% if artworks[i].like_status %}
                                         <a href="#unlike" onclick="unlike('{{ artworks[i].artwork_id }}')"
                                            title="Unlike" id="unlike-{{ artworks[i].artwork_id }}"
                                            style="display:inline-block; color:red;"><i class="fa fa-heart"></i></a>
@@ -353,7 +353,7 @@
                                             {{ artworks[i+1].like_count}}</a>
                                     </div>
                                     <div class="cell">
-                                        {% if like_status %}
+                                        {% if artworks[i].like_status %}
                                             <a href="#unlike" onclick="unlike('{{ artworks[i+1].artwork_id}}')"
                                                title="Unlike" id="unlike-{{ artworks[i+1].artwork_id}}"
                                                style="display:inline-block; color:red;"><i class="fa fa-heart"></i></a>
@@ -517,7 +517,7 @@
                                             {{ artworks[i+2].like_count}}</a>
                                     </div>
                                     <div class="cell">
-                                        {% if like_status %}
+                                        {% if artworks[i].like_status %}
                                             <a href="#unlike" onclick="unlike('{{ artworks[i+2].artwork_id}}')"
                                                title="Unlike" id="unlike-{{ artworks[i+2].artwork_id}}"
                                                style="display:inline-block; color:red;"><i class="fa fa-heart"></i></a>
