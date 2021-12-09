@@ -79,4 +79,4 @@ def guess_name():
     if form.validate_on_submit():
         session['name'] = form.name.data
         return redirect(url_for('artworks.guess'))
-    return render_template('form_base.html', form=form, title="Draw and Guess", form_name="Your name")
+    return render_template('form_base.html', form=form, title="Chatapp", form_name="Your name")

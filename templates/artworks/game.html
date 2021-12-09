@@ -19,12 +19,12 @@
         <div class="card-body">
             <h3 class="cart-title" style="text-align: center">Chat</h3>
             <div class="card-text">
+                <center>
+                <input type="text" placeholder="Type a message" id="chat-input" onkeypress="onChatKeypress(event)">
+                <button id="chat-submit" onclick="chatSend()">Enter</button>
+                </center>
                 <ul class="list-group" id="chat-ul">
                 </ul>
-                <center>
-                    <input type="text" placeholder="Type your guess" id="chat-input" onkeypress="onChatKeypress(event)">
-                    <button id="chat-submit" onclick="chatSend()">Enter</button>
-                </center>
             </div>
 
         </div>
