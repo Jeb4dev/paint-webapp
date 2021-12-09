@@ -6,145 +6,16 @@
 
 {% block css %}
     <link rel="stylesheet" href="https://unpkg.com/huebee@2/dist/huebee.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/canvas.css') }}">
 {% endblock %}
 
 {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
     <script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
 
-    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas-utils.js') }}"></script>
-    <script type="application/javascript" src="{{ url_for('static', filename='js/canvas.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        {% block messages %}
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <h3 style="color: red" align="center">{{ message }}</h3>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        {% endblock %}
-        <h3 align="center" id="js-socket-message"></h3>
-        <div class="row" id="draw-ui">
-            <div class="col"></div>
-            <div class="col">
-                <div class="d-flex">
-                    <div class="d-flex" style="flex-direction: column">
-                        <div class="d-flex" style="flex-direction: row" id="tool-bar">
-                            <div class="paint-col">
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="brush"
-                                    title="Brush"
-                                >
-                                    <i class="paint-tool icon-paint-brush"></i>
-                                </button>
-
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="line"
-                                    style="width: 42px; height: 46.5px;"
-                                    title="Line"
-                                >
-                                    <p class="icon-line">\</p>
-                                </button>
-
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="triangle"
-                                    title="Triangle"
-                                >
-                                    <i class="paint-tool icon-caret-up"></i>
-                                </button>
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="undo"
-                                    title="Undo"
-                                >
-                                    <i class="icon-undo"></i>
-                                </button>
-                                <button
-                                    class="paint-tool btn btn-primary"
-                                    onclick="changeTool(this)"
-                                    data-tool="download"
-                                    title="download"
-                                >
-                                    <i class="paint-tool icon-download"></i>
-                                </button>
-                            </div>
-                            <div class="paint-col">
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="rubber"
-                                    title="Rubber"
-                                >
-                                    <i class="paint-tool icon-fire"></i>
-                                </button>
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="rect"
-                                    title="Rectangle"
-                                >
-                                    <i class="paint-tool icon-square-o"></i>
-                                </button>
-
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    onclick="changeTool(this)"
-                                    data-tool="circle"
-                                    title="Ellipse"
-                                >
-                                    <i class="paint-tool icon-circle-o"></i>
-                                </button>
-                                <button
-                                    class="paint-tool btn btn-outline-dark"
-                                    id="fulfill-button"
-                                    onclick="changeTool(this)"
-                                    data-tool="fulfill"
-                                    title="Fulfill"
-                                >
-                                    <i class="icon-tint"></i>
-                                </button>
-                                <button
-                                    class="paint-tool btn btn-danger"
-                                    onclick="changeTool(this)"
-                                    data-tool="clear"
-                                    title="Clear"
-                                >
-                                    <i class="paint-tool icon-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <input
-                            id="stroke-input"
-                            class="input-canvas"
-                            type="number"
-                            value="10"
-                            min="1"
-                            max="100"
-                            onkeydown="limitStroke(this, event)"
-                            oninput="changeStroke(this)"
-                        >
-                        <input id="color-input" class="color-input input-canvas" value="#000000" data-huebee/>
-                    </div>
-                    <div id="canvas" style="margin-left: 2.5vw; margin-right: 1vw"></div>
-                </div>
-            </div>
-            <div class="col">
-                {% block right_column %}
-                {% endblock %}
-            </div>
-        </div>
-    </div>
+    {% block right_column %}
+    {% endblock %}
 
 {% endblock %}
