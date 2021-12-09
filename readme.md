@@ -1,4 +1,4 @@
-# Online Drawing and Guessing Game
+# real time chat made* in 50 min
 
 
 ## Purpose
@@ -6,12 +6,7 @@ This project was made as part of the weekly programming challenge hosted by [Dev
 The project was made for learning purposes. Made by Jeb and mihett05.
 
 
-## [Live Demo](https://art-race.herokuapp.com)
-### Gallery Page
-![image](https://user-images.githubusercontent.com/76889226/144460258-92261a05-eb47-4703-9cb7-878d041160e5.png)
-
-### Drawing in Guessing game (like scribble.io)
-![image](https://user-images.githubusercontent.com/76889226/144343961-fc555104-fd68-4764-9fd8-d36898d5e250.png)
+## [Live Demo](https://jeb-chatapp.herokuapp.com/)
 
 
 
