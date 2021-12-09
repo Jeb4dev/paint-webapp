@@ -29,7 +29,7 @@ def create_app():
     # register blueprints
     _app.register_blueprint(home, url_prefix='/')
     _app.register_blueprint(auth, url_prefix='/auth')
-    _app.register_blueprint(artworks, url_prefix='/artworks')
+    _app.register_blueprint(artworks, url_prefix='/chatapp')
     _app.register_blueprint(gallery, url_prefix='/gallery')
     _app.register_blueprint(api_likes, url_prefix='/api/likes')
     _app.register_blueprint(api_images, url_prefix='/api/images')

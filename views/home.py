@@ -7,4 +7,4 @@ home = Blueprint('index', __name__)
 @home.get('/')
 def index():
 
-    redirect(url_for('artworks.guess_name'))
+    return redirect(url_for('artworks.guess_name'))

@@ -62,7 +62,7 @@ def draw():
     return render_template('artworks/draw.html', form=form)
 
 
-@artworks.get('/guess')
+@artworks.get('/chat')
 def guess():
     if current_user.is_authenticated:
         session['name'] = current_user.username
@@ -71,7 +71,7 @@ def guess():
     return render_template('artworks/game.html')
 
 
-@artworks.route('/guess/name', methods=['GET', 'POST'])
+@artworks.route('/chat/name', methods=['GET', 'POST'])
 def guess_name():
     form = GameNameForm()
     if current_user.is_authenticated:
